@@ -417,16 +417,24 @@ def moon():
        luna.obs.pressure = 0
        luna.moon_info()
 
-       local_human_next_moonrise = time_to_human(to_local(luna.moon_data['next_moonrise'].datetime()))
+       local_human_next_moonrise = time_to_human(to_local(luna.moon_data['next_moonrise'].datetime())).split()
 
        luna.obs.date = luna.moon_data['next_moonrise'].datetime()
        luna.moon_info()
 
        local_human_next_moonset = time_to_human(to_local(luna.moon_data['next_moonset'].datetime()))
+       moonset_split = time_to_human(to_local(luna.moon_data['next_moonset'].datetime())).split()
+
+       # Only dipslay set date if day is different
+       if local_human_next_moonrise[0] == moonset_split[0]:
+           moonset_display = moonset_split[1] + " " + moonset_split[2] + " " + moonset_split[3] 
+       else: 
+           moonset_display = local_human_next_moonset
+
 
        moon[display_date] = { 
-               "Moonrise": local_human_next_moonrise,
-               "Moonset": local_human_next_moonset,
+               "Moonrise": local_human_next_moonrise[1] + " " + local_human_next_moonrise[2] + " " + local_human_next_moonrise[3],
+               "Moonset": moonset_display,
                "Phase": luna.moon_data['moon_quarter'],
                "PhaseName": luna.moon_data['moon_phase_name'],
                "PhasePercent": luna.moon_data['moon_phase_percent'],
