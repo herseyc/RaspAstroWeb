@@ -33,6 +33,7 @@ MY_ELEVATION = 7.7
 # Use XEphem formated data
 # https://github.com/XEphem/Catalogs 
 CUSTOM_OBJECTS = [
+        "T CRB,f|V|M3,15:57:25,+26:03:36,10.8,1950",
         "M1|NGC 1952|LBN 833|Sh2-244|CED 53|Taurus A,f|R|SN,5:34:31.9,22:0:52,8.4,2000,360",
         "M33|NGC 598|UGC 1117|MCG 5-4-69|ZWG 502.110|PGC5818 N,f|G|Sc,1:33:51.9,30:39:29,5.5,2000,4122|2496|23",
         "M42|NGC 1976|LBN 974|Orion nebula,f|N|EN,5:35:17.1,-5:23:25,4,2000,3900",
