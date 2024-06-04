@@ -404,22 +404,35 @@ def moon():
     #print(utc_datetime)
 
     #Set up dictionaries to store data
-    luna.moon_data = {}
     moon = {}
 
     while day < numdays:
        moondate = utc_datetime + timedelta(days=day)
-       print(day)
+       luna.moon_data =  {}
+
        display_date = moondate.strftime("%m/%d/%Y")
-       print(f"Date: {display_date}")
+
+
        luna.obs.date = moondate
        luna.obs.horizon = "-0:34"
        luna.obs.pressure = 0
        luna.moon_info()
 
+
        local_human_next_moonrise = time_to_human(to_local(luna.moon_data['next_moonrise'].datetime())).split()
 
-       luna.obs.date = luna.moon_data['next_moonrise'].datetime()
+       #Figure out if Moon rise is on different day (no rise on current day)
+       d_day = display_date.split("/")
+       md_day = local_human_next_moonrise[0].split("/")
+
+       if int(d_day[1]) != int(md_day[1]):
+           get_next_moonset_date = moondate
+           moonrise_display = "-"
+       else:
+           get_next_moonset_date = luna.moon_data['next_moonrise'].datetime()
+           moonrise_display = local_human_next_moonrise[1] + " " + local_human_next_moonrise[2] + " " + local_human_next_moonrise[3]
+
+       luna.obs.date = get_next_moonset_date
        luna.moon_info()
 
        local_human_next_moonset = time_to_human(to_local(luna.moon_data['next_moonset'].datetime()))
@@ -433,7 +446,7 @@ def moon():
 
 
        moon[display_date] = { 
-               "Moonrise": local_human_next_moonrise[1] + " " + local_human_next_moonrise[2] + " " + local_human_next_moonrise[3],
+               "Moonrise": moonrise_display,
                "Moonset": moonset_display,
                "Phase": luna.moon_data['moon_quarter'],
                "PhaseName": luna.moon_data['moon_phase_name'],
