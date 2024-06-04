@@ -1,6 +1,7 @@
 # RaspAstro Web
 ![RaspAstro Logo](https://github.com/herseyc/RaspAstroWeb/blob/master/static/RaspAstro-Logo.png?raw=true)
-Web application which display interesting and useful Astronomy data.  Information about the Sun, Moon, planets, and the ISS.
+
+RaspAstroWeb is an application which display interesting and useful Astronomy data.  Information about the Sun, Moon, planets, and the ISS.
 
 RaspAstro Web Demo running here: http://vhersey.hopto.org:5000/
 
@@ -108,18 +109,18 @@ sudo systemctl start raspastroweb.service
 ## Example Observer Information
 The Observer Page displays the Observer's location information. The location information is obtained from GPSD or from the manual configurations config.py.  The INDI information is updated from the INDI Web Manager API.  The Observer information is static and only updates if refreshed.  The INDI Information updates every 30 seconds. 
 
-![RaspAstro Observer Page](https://github.com/herseyc/raspastro/blob/master/RaspAstroWeb/img/raspastro-observer-page.png?raw=true)
+![RaspAstro Observer Page](https://github.com/herseyc/RaspAstroWeb/blob/master/img/raspastro-observer-page.png?raw=true)
 
 ## Example Solar System Information
 Sun, Moon, and Planet Data.  This information on this page is only updated when refreshed.
 
-![RaspAstro Solar System Page](https://github.com/herseyc/raspastro/blob/master/RaspAstroWeb/img/raspastro-solarsystem-page.png?raw=true)
+![RaspAstro Solar System Page](https://github.com/herseyc/RaspAstroWeb/blob/master/img/raspastro-solarsystem-page.png?raw=true)
 
 ## Example ISS Information
-![RaspAstro ISS Page](https://github.com/herseyc/raspastro/blob/master/RaspAstroWeb/img/raspastro-iss-page.png?raw=true)
+![RaspAstro ISS Page](https://github.com/herseyc/RaspAstroWeb/blob/master/img/raspastro-iss-page.png?raw=true)
 
 ## Example Polaris/Polar Alignment Information
-![RaspAstro Polaris Page](https://github.com/herseyc/raspastro/blob/master/RaspAstroWeb/img/raspastro-polaris-page.png?raw=true)
+![RaspAstro Polaris Page](https://github.com/herseyc/RaspAstroWeb/blob/master/img/raspastro-polaris-page.png?raw=true)
 
 ## planets.py
 Generates a Solar System Map. 
@@ -131,7 +132,7 @@ INSTALL_DIR/virtualenv/raspastroweb/bin/python3 ./planets.py
 ```
 Replace INSTALL_DIR with the full path to the directory where RaspAstroWeb was installed.
 
-![RaspAstro Solar System Map](https://github.com/herseyc/raspastro/blob/master/RaspAstroWeb/static/planets.png?raw=true)
+![RaspAstro Solar System Map](https://github.com/herseyc/RaspAstroWeb/blob/master/static/planets.png?raw=true)
 
 
 ## raspissinfo.py
