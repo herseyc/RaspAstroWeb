@@ -1,4 +1,5 @@
 # RaspAstro Web
+![RaspAstro Logo](https://github.com/herseyc/RaspAstroWeb/blob/master/static/RaspAstro-Logo.png?raw=true)
 Web application which display interesting and useful Astronomy data.  Information about the Sun, Moon, planets, and the ISS.
 
 RaspAstro Web Demo running here: http://vhersey.hopto.org:5000/
