@@ -1,0 +1,28 @@
+body {
+   background-color: #000000;
+   color: #F28C28;
+}
+h1 {
+   font-family: verdana;
+   font-size: 150%;
+}
+
+h2 {
+   font-family: verdana;
+   font-size: 125%;
+}
+
+table, td, th {
+   border: 1px solid;
+   border-collapse: collapse;
+   font-family: verdana;
+   padding: 1px;
+}
+
+p {
+   font-family: verdana;
+}
+
+a {
+   color: #F28C28;
+}

@@ -1,0 +1,20 @@
+[Unit]
+Description=RaspAstro Web Application
+After=network.target
+
+[Service]
+Type=idle
+# MUST SET YOUR USERNAME HERE 
+User=pi
+
+# SHOULD BE SET TO INSTALL_DIR
+WorkingDirectory=INSTALLDIR
+
+# PATH SHOULD BE SET TO INSTALL_DIR 
+ExecStart=INSTALLDIR/virtualenv/raspastroweb/bin/python3 INSTALLDIR/raspastro-web.py
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
