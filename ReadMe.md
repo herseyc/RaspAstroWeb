@@ -8,8 +8,8 @@ Download raspastro
 ```
 mkdir -p ~/Projects
 cd ~/Projects
-git clone https://github.com/herseyc/raspastro.git
-cd ~/Projects/raspastro/RaspAstroWeb
+git clone https://github.com/herseyc/RaspAstroWeb.git
+cd ~/Projects/RaspAstroWeb
 ```
 Edit install_raspastro-web.sh and set INSTALL_DIR (default: /var/www/raspastro) 
 
@@ -35,7 +35,7 @@ Starts RaspAstroWeb.
 Updating RaspAstroWeb
 
 ```
-cd ~/Projects/raspastro
+cd ~/Projects/RaspAstroWeb
 git pull origin master
 cd RaspAstroWeb
 ```
