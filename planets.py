@@ -91,6 +91,13 @@ planet_dict = {
         "size": 8,
         "color": "blue",
     },
+    "Pluto": {
+        "distance": planets.pluto['sun_distance'],
+        "hlon": convert_dms_to_dd(planets.pluto['hlon']),
+        "hlat": convert_dms_to_dd(planets.pluto['hlat']),
+        "size": 1,
+        "color": "gray",
+    },
 }
 
 #print(planet_dict)
