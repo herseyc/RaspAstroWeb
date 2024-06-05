@@ -1,0 +1,9 @@
+###################################################################### 
+# Cron entry to generate new planet map at 8 AM every Monday
+# /var/www/raspastro needs to be changed to the install directory
+#
+# Can be configured to run anytime yow want
+# Help can be found here: https://crontab.guru/
+#
+######################################################################
+0 8 * * 1 /var/www/raspastro/virtualenv/raspastroweb/bin/python3 /var/www/raspastro/planets.py
