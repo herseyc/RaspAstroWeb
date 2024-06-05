@@ -203,7 +203,7 @@ function refreshdata() {
 	<td>Next Transit</td>
 	<td>Sun Distance (AU)</td>
 	<td>Earth Distance (AU)</td>
-	<td rowspan=8><img src="/static/planets.png" width="200"><br><a href="/static/planets.png">Full-size</a></td>
+	<td rowspan=9><img src="/static/planets.png" width="220"><br><a href="/static/planets.png">Full-size</a></td>
 </tr>
 {% if mercury['alt'] > 0 %}
 <tr bgcolor="green">
@@ -295,6 +295,19 @@ function refreshdata() {
 	<td>{{ neptune['next_transit'] }}</td>
 	<td>{{ neptune['sun_distance'] }}</td>
 	<td>{{ neptune['earth_distance'] }}</td>
+</tr>
+{% if pluto['alt'] > 0 %}
+<tr bgcolor="green">
+{% else %}
+<tr>
+{% endif %}
+	<td>♇ {{ pluto['name'] }}</td>
+	<td>{{ pluto['alt'] }}° {{ pluto['rising_sign'] }}</td>
+	<td>{{ pluto['az'] }}°</td>
+	<td>{{ pluto['mag'] }}</td>
+	<td>{{ pluto['next_transit'] }}</td>
+	<td>{{ pluto['sun_distance'] }}</td>
+	<td>{{ pluto['earth_distance'] }}</td>
 </tr>
 </table>
 <p>1 AU = ~150 million Kilometers = ~93 million miles = 8.3 light-minutes</p>

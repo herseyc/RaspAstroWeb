@@ -133,6 +133,7 @@ def index():
     astro.saturn = {}
     astro.uranus = {}
     astro.neptune = {}
+    astro.pluto = {}
 
     astro.planet_info()
 
@@ -144,6 +145,7 @@ def index():
     astro.saturn['rising_sign'] = rising_or_setting(next_transit_time=astro.saturn['next_transit'])
     astro.uranus['rising_sign'] = rising_or_setting(next_transit_time=astro.uranus['next_transit'])
     astro.neptune['rising_sign'] = rising_or_setting(next_transit_time=astro.neptune['next_transit'])
+    astro.pluto['rising_sign'] = rising_or_setting(next_transit_time=astro.pluto['next_transit'])
 
     # Convert planet next transit times to human readable local time
     astro.mercury['next_transit'] = time_to_human(to_local(astro.mercury['next_transit'].datetime()))
@@ -153,6 +155,7 @@ def index():
     astro.saturn['next_transit'] = time_to_human(to_local(astro.saturn['next_transit'].datetime()))
     astro.uranus['next_transit'] = time_to_human(to_local(astro.uranus['next_transit'].datetime()))
     astro.neptune['next_transit'] = time_to_human(to_local(astro.neptune['next_transit'].datetime()))
+    astro.pluto['next_transit'] = time_to_human(to_local(astro.pluto['next_transit'].datetime()))
 
     # Messier Objects
     messier_objs = {}
@@ -196,7 +199,7 @@ def index():
     astro.polaris_data['next_transit'] = time_to_human(to_local(astro.polaris_data['next_transit'].datetime()))
     astro.polaris_data['hourangle'] = round(astro.polaris_data['phourangle'] * 0.0667, 1)
 
-    return render_template('raspastrostatus.html', datetime=current_datetime,  gpsdata=gps_data, gpslatdec=f"{gpslatitude:.2f}", gpslondec=f"{gpslongitude:.2f}", obsiframe=obsiframe, obssidereal=astro.sidereal, moon=astro.moon_data, moonimage=moon_image, sun=astro.sun_data, mercury=astro.mercury, venus=astro.venus, mars=astro.mars, jupiter=astro.jupiter, saturn=astro.saturn, uranus=astro.uranus, neptune=astro.neptune, polaris=astro.polaris_data, deepsky=custom_deepsky, messier=messier_objs)
+    return render_template('raspastrostatus.html', datetime=current_datetime,  gpsdata=gps_data, gpslatdec=f"{gpslatitude:.2f}", gpslondec=f"{gpslongitude:.2f}", obsiframe=obsiframe, obssidereal=astro.sidereal, moon=astro.moon_data, moonimage=moon_image, sun=astro.sun_data, mercury=astro.mercury, venus=astro.venus, mars=astro.mars, jupiter=astro.jupiter, saturn=astro.saturn, uranus=astro.uranus, neptune=astro.neptune, pluto=astro.pluto, polaris=astro.polaris_data, deepsky=custom_deepsky, messier=messier_objs)
 
 # INDI Info from INDI Web Manager API
 @app.route('/indi')

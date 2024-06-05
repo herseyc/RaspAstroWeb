@@ -289,6 +289,25 @@ class AstroData:
         self.neptune['constellation'] =  ephem.constellation(c_neptune)
         self.neptune['next_transit'] = obs.next_transit(c_neptune) 
 
+        # Pluto
+        self.pluto = {}
+        c_pluto = ephem.Pluto()
+        c_pluto.compute(obs)
+        self.pluto['name'] =  c_pluto.name
+        self.pluto['hlat'] =  c_pluto.hlat
+        self.pluto['hlon'] =  c_pluto.hlon
+        self.pluto['elong'] =  c_pluto.elong
+        self.pluto['mag'] =  c_pluto.mag
+        self.pluto['radius'] =  c_pluto.radius
+        self.pluto['a_ra'] =  c_pluto.a_ra
+        self.pluto['a_dec'] =  c_pluto.a_dec
+        self.pluto['alt'] =  round(math.degrees(c_pluto.alt), 1)
+        self.pluto['az'] =  round(math.degrees(c_pluto.az), 1)
+        self.pluto['sun_distance'] =  round(c_pluto.sun_distance, 4)
+        self.pluto['earth_distance'] =  round(c_pluto.earth_distance, 4)
+        self.pluto['constellation'] =  ephem.constellation(c_pluto)
+        self.pluto['next_transit'] = obs.next_transit(c_pluto) 
+
     def polaris_info(self, **kw):
         ''' Polaris Information '''
         obs = kw.get("obs", self.obs)
