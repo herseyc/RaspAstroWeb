@@ -115,6 +115,6 @@ for key in planet_dict:
     #ax.plot(planet_dict[key]['hlon'], planet_dict[key]['hlat'], marker='o', markersize=planet_dict[key]['size'], color=planet_dict[key]['color'], label=key)
 
 ax.legend()
-plt.savefig('static/planets.png', bbox_inches='tight')
+plt.savefig(INSTALLDIR + '/static/planets.png', bbox_inches='tight')
 
 

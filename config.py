@@ -1,5 +1,8 @@
 # Store RaspAstro Configuration Variables
 
+# Install directory
+INSTALLDIR = "/var/www/raspastro"
+
 # Web Server Port
 # Use this to change the port RaspAstroWeb (raspastro-web.py) listens on
 WEBPORT = 5000
