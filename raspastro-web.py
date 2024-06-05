@@ -315,6 +315,26 @@ def sun():
 
     sol = AstroData(obslat=gps_data[1], obslon=gps_data[2], obslev=gps_data[3], obshorizon=MY_HORIZON)
 
+    # Current Sun Information
+    sol.sun_data = {}
+    sol.obs.date = datetime.utcnow()
+    sol.sun_info()
+
+    # Convert Sun event times to human readable local time
+    sol.sun_data['next_sunset'] = time_to_human(to_local(sol.sun_data['next_sunset'].datetime()))
+    sol.sun_data['next_sunrise'] = time_to_human(to_local(sol.sun_data['next_sunrise'].datetime()))
+    sol.sun_data['next_solstice'] = time_to_human(to_local(sol.sun_data['next_solstice'].datetime()))
+    sol.sun_data['next_equinox'] = time_to_human(to_local(sol.sun_data['next_equinox'].datetime()))
+
+    # Is Sun Rising or Setting
+    sol.sun_data['rising_sign'] = rising_or_setting(next_transit_time=sol.sun_data['next_sun_transit'])
+
+    # Convert Sun next transit  time to human readable local time
+    sol.sun_data['next_sun_transit'] = time_to_human(to_local(sol.sun_data['next_sun_transit'].datetime()))
+    
+    # Save current sun data
+    currentsundata = sol.sun_data
+
     # number of days to compute
     numdays = 10
     day = 0
@@ -328,11 +348,12 @@ def sun():
     utc_datetime = today_midnight - timeoffset
 
     # Set up dictionaries to store data
-    sol.sun_data = {}
     sun = {}
 
     while day < numdays:
        sundate = utc_datetime + timedelta(days=day)
+       sol.sun_data = {}
+
        display_date = sundate.strftime("%m/%d/%Y")
        sol.obs.date = sundate
        sol.obs.horizon = "-0:34"
@@ -368,7 +389,7 @@ def sun():
 
        day = day+1
 
-    return render_template('sun_stats.html', datetime=current_datetime, sunstats=sun, numdays=numdays)
+    return render_template('sun_stats.html', datetime=current_datetime,  currentsun=currentsundata, sunstats=sun, numdays=numdays)
 
 @app.route('/moon')
 def moon():
