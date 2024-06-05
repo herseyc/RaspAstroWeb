@@ -21,7 +21,7 @@
 <td>
 {% endif %}
 {{ currentsun['sun_alt'] }}° {{ currentsun['rising_sign'] }}</td>
-<td rowspan="7"><img src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_512_HMIIF.jpg" width="200"><br>Source: <a href="https://sdo.gsfc.nasa.gov/data/">SDO Image</a></td>
+<td rowspan="8"><img src="https://sdo.gsfc.nasa.gov/assets/img/latest/latest_512_HMIIF.jpg" width="200"><br>Source: <a href="https://sdo.gsfc.nasa.gov/data/">SDO Image</a></td>
 
 
 </tr>
@@ -31,6 +31,9 @@
 </tr>
 <tr>
 <td>Next Sunrise:</td><td>{{ currentsun['next_sunrise'] }} </td>
+</tr>
+<tr>
+<td>Next Solar Noon:</td><td>{{ currentsun['next_sun_transit'] }} </td>
 </tr>
 <tr>
 <td>Next Sunset:</td><td>{{ currentsun['next_sunset'] }} </td>
