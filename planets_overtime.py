@@ -147,7 +147,7 @@ while passes <= orbit_points:
         #ax.plot(planet_dict[key]['hlon'], planet_dict[key]['hlat'], marker='o', markersize=planet_dict[key]['size'], color=planet_dict[key]['color'], label=key)
 
     #ax.legend()
-    plt.savefig(f'static/planets/planets{passes}.png', bbox_inches='tight')
+    plt.savefig(f'{INSTALLDIR}/static/planets/planets{passes}.png', bbox_inches='tight')
     plt.close(fig)
     passes += 1
     time_delta = time_delta + timedelta(days=days_between_points)
