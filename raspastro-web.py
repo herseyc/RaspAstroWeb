@@ -407,6 +407,26 @@ def moon():
 
     luna = AstroData(obslat=gps_data[1], obslon=gps_data[2], obslev=gps_data[3], obshorizon=MY_HORIZON)
 
+    # Current Moon Information
+    luna.moon_data = {}
+    luna.obs.date = datetime.utcnow()
+    luna.moon_info()
+
+    # Convert Moon event times to human readable local time
+    luna.moon_data['next_full_moon'] = time_to_human(to_local(luna.moon_data['next_full_moon'].datetime()))
+    luna.moon_data['next_new_moon'] = time_to_human(to_local(luna.moon_data['next_new_moon'].datetime()))
+
+    # Is Moon Rising or Setting
+    luna.moon_data['rising_sign'] = rising_or_setting(next_transit_time=luna.moon_data['next_moon_transit'])
+
+    # Convert Moon next transit/set/rise time to human readable local time
+    luna.moon_data['next_moon_transit'] = time_to_human(to_local(luna.moon_data['next_moon_transit'].datetime()))
+    luna.moon_data['next_moonset'] = time_to_human(to_local(luna.moon_data['next_moonset'].datetime()))
+    luna.moon_data['next_moonrise'] = time_to_human(to_local(luna.moon_data['next_moonrise'].datetime()))
+
+    currentmoondata = luna.moon_data
+
+
     # number of days to compute
     numdays = 30
     day = 0
@@ -477,7 +497,7 @@ def moon():
 
        day = day+1
 
-    return render_template('moon_stats.html', datetime=current_datetime, moonstats=moon, numdays=numdays)
+    return render_template('moon_stats.html', datetime=current_datetime, currentmoon=currentmoondata, moonimage=moon_image, moonstats=moon, numdays=numdays)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=WEBPORT)
