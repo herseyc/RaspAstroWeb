@@ -75,6 +75,8 @@ def index():
 
     # Moon Information
     astro.moon_data = {}
+    astro.obs.horizon = "-0:34"
+    astro.obs.pressure = 0
     astro.moon_info()
 
     # Convert Moon event times to human readable local time
@@ -91,6 +93,8 @@ def index():
 
     # Sun Information
     astro.sun_data = {}
+    astro.obs.horizon = "-0:34"
+    astro.obs.pressure = 0
     astro.sun_info()
 
     # Convert Sun event times to human readable local time
@@ -318,6 +322,8 @@ def sun():
     # Current Sun Information
     sol.sun_data = {}
     sol.obs.date = datetime.utcnow()
+    sol.obs.horizon = "-0:34"
+    sol.obs.pressure = 0
     sol.sun_info()
 
     # Convert Sun event times to human readable local time
@@ -409,6 +415,8 @@ def moon():
 
     # Current Moon Information
     luna.moon_data = {}
+    luna.obs.horizon = "-0:34"
+    luna.obs.pressure = 0
     luna.obs.date = datetime.utcnow()
     luna.moon_info()
 
