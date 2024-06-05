@@ -3,10 +3,12 @@
 
 RaspAstroWeb is an application which display interesting and useful Astronomy data.  Information about the Sun, Moon, planets, and the ISS.
 
+RaspAstro post at Suffolk Sky: http://www.suffolksky.com/tag/raspastro/
+
 RaspAstro Web Demo running here: http://vhersey.hopto.org:5000/
 
 ## Installation 
-Download raspastro
+Download RaspAstro Web
 ```
 mkdir -p ~/Projects
 cd ~/Projects
@@ -39,13 +41,13 @@ Updating RaspAstroWeb
 ```
 cd ~/Projects/RaspAstroWeb
 git pull origin master
-cd RaspAstroWeb
 ```
 Edit install_raspastroweb.sh and set the INSTALL_DIR
 ```
 ./install_raspastroweb.sh
 ```
 INSTALL_DIR/config.py will be copied to INSTALL_DIR/config.old
+(I'll work on a better way to do this)
 
 Update INSTALL_DIR/config.py as needed.
 
