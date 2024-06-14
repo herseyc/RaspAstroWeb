@@ -5,5 +5,9 @@
 # Can be configured to run anytime yow want
 # Help can be found here: https://crontab.guru/
 #
+# This generates the planet map every Monday at 8:00 AM local time.
+# If you want to generate the map every day at 8 AM change the 1 to *
+#
+# SuffolkSky.com - http://www.suffolksky.com/
 ######################################################################
 0 8 * * 1 /var/www/raspastro/virtualenv/raspastroweb/bin/python3 /var/www/raspastro/planets.py
