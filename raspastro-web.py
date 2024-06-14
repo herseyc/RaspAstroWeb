@@ -394,6 +394,7 @@ def sun():
                "AstronomicalDay": local_human_astronomical_day[1] + " " + local_human_astronomical_day[2] + " " + local_human_astronomical_day[3], 
                "DayLengthHours": display_day[0], 
                "DayLengthMinutes": display_day[1],
+               "DayLengthSeconds": int(round(float(display_day[2]), 0)),
         }
 
        day = day+1
