@@ -4,3 +4,4 @@ folium >= 0.15.1
 Flask >= 3.0.0
 numpy >= 1.26.3
 matplotlib >= 3.8.2
+pgeocode

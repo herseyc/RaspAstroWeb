@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+<title>RaspAstro Moon Statistics</title>
+<link rel="stylesheet" href="/static/raspastro-style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/RaspAstro-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/RaspAstro-favicon-16x16.png">
+<link rel="shortcut icon" href="/static/favicon/favicon.ico">
+</head>
+
+<body>
+<h1>RaspAstro</h1>
+<h2>The Moon for {{zipcode}}</h2>
+<p><a href="/">Home</a></p>
+
+<p>Lat: {{ ziplat }} Lon: {{ ziplon }}</p>
+<p>Refreshed at: {{ datetime }}</p>
+
+<h2>Current Moon</h2>
+<table>
+<tr>
+<td>Moon Altitude:</td>
+{% if currentmoon['moon_alt'] > 0 %}
+<td bgcolor="green">
+{% else %}
+<td>
+{% endif %}
+	{{ currentmoon['moon_alt'] }}° {{ currentmoon['rising_sign'] }}</td><td rowspan="9">
+<img src="/static/Moon/{{ moonimage[currentmoon['moon_quarter']][currentmoon['moon_phase_name']] }}" width="200">
+<br>Source: <a href="https://moon.nasa.gov/">NASA Moon</a></td>
+</tr>
+<tr>
+<td>Moon Distance:</td><td>{{ currentmoon['earth_distance_km'] }} km</td>
+</tr>
+<tr>
+<td>Next Moon Transit:</td><td>{{ currentmoon['next_moon_transit'] }}</td>
+</tr>
+<tr>
+<td>Next Moon Rise:</td><td>{{ currentmoon['next_moonrise'] }}</td>
+</tr>
+<tr>
+<td>Next Moon Set:</td><td>{{ currentmoon['next_moonset'] }}</td>
+</tr>
+<tr>
+<td>Current Phase:</td><td>{{ currentmoon['moon_phase_emoji'] }} {{ currentmoon['moon_phase_percent'] }}% {{ currentmoon['moon_quarter'] }} {{ currentmoon['moon_phase_name'] }}</td>
+</tr>
+<tr>
+<td>Moon Cycle:</td><td>{{ currentmoon['cycle_percent'] }}% of the 29.53 day cycle</td>
+</tr>
+<tr>
+<td>Next New Moon:</td><td>{{ currentmoon['next_new_moon'] }} </td>
+</tr>
+<tr>
+<td>Next Full Moon:</td><td>{{ currentmoon['next_full_moon'] }} </td>
+</tr>
+</table>
+
+<h2>Moon Info  Next {{ numdays }} Days</h2>
+<table>
+<tr>
+	<td>Day</td>
+	<td>Rise</td>
+	<td>Set</td>
+	<td>Phase at Rise</td>
+</tr>
+{% for moon in moonstats %}
+<tr>
+	<td>{{ moon }}</td>
+	<td>{{ moonstats[moon]['Moonrise'] }}</td>
+	<td>{{ moonstats[moon]['Moonset'] }}</td>
+	<td>{{ moonstats[moon]['PhaseIcon'] }} {{ moonstats[moon]['PhasePercent'] }}% {{ moonstats[moon]['Phase'] }} {{ moonstats[moon]['PhaseName'] }}</td>
+</tr>
+{% endfor %}
+</table>
+
+
+<p><a href="https://github.com/herseyc/RaspAstroWeb">RaspAstroWeb</a> by Hersey from <a href="http://www.suffolksky.com">SuffolkSky.com</a></p>
+
+</body>
+
+</html>

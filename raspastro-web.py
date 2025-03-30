@@ -15,6 +15,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from config import *
 from get_gps import *
+import pgeocode
 
 import sys
 sys.dont_write_bytecode = True
@@ -510,6 +511,124 @@ def moon():
        day = day+1
 
     return render_template('moon_stats.html', datetime=current_datetime, currentmoon=currentmoondata, moonimage=moon_image, moonstats=moon, numdays=numdays)
+
+@app.route('/moon/zip/<int:zipcode>')
+def moon_zip(zipcode):
+
+    current_datetime = time_to_human(to_local(datetime.utcnow()))
+
+    zcode = str(zipcode)
+
+    nomi = pgeocode.Nominatim("us")
+    zipquery = nomi.query_postal_code(zcode)
+    ziplat = zipquery["latitude"]
+    ziplon = zipquery["longitude"]
+
+    gps_data_tuple = get_gps_data()
+
+    gpsfixtype = gps_data_tuple[0]
+    gpslatdms = gps_data_tuple[1]
+    gpslondms = gps_data_tuple[2]
+    gpsaltitude = gps_data_tuple[3]
+    gpslatitude = gps_data_tuple[4]
+    gpslongitude = gps_data_tuple[5]
+    gps_data = gps_data_tuple[6]
+
+    luna = AstroData(obslat=gps_data[1], obslon=gps_data[2], obslev=gps_data[3], obshorizon=MY_HORIZON)
+
+    # Current Moon Information
+    luna.moon_data = {}
+    luna.obs.horizon = "-0:34"
+    luna.obs.pressure = 0
+    luna.obs.date = datetime.utcnow()
+    luna.moon_info()
+
+    # Convert Moon event times to human readable local time
+    luna.moon_data['next_full_moon'] = time_to_human(to_local(luna.moon_data['next_full_moon'].datetime()))
+    luna.moon_data['next_new_moon'] = time_to_human(to_local(luna.moon_data['next_new_moon'].datetime()))
+
+    # Is Moon Rising or Setting
+    luna.moon_data['rising_sign'] = rising_or_setting(next_transit_time=luna.moon_data['next_moon_transit'])
+
+    # Convert Moon next transit/set/rise time to human readable local time
+    luna.moon_data['next_moon_transit'] = time_to_human(to_local(luna.moon_data['next_moon_transit'].datetime()))
+    luna.moon_data['next_moonset'] = time_to_human(to_local(luna.moon_data['next_moonset'].datetime()))
+    luna.moon_data['next_moonrise'] = time_to_human(to_local(luna.moon_data['next_moonrise'].datetime()))
+
+    currentmoondata = luna.moon_data
+
+
+    # number of days to compute
+    numdays = 30
+    day = 0
+
+    #Get local time offset
+    timeoffset = datetime.now() - datetime.utcnow()
+    timeoffsetsec = int(round(timeoffset.total_seconds() / 3600))
+    #print(timeoffsetsec)
+
+    #Set time to today at midnight
+    today_midnight = datetime.now().replace(hour=0, minute=0)
+    #print(today_midnight)
+
+    #convert today at midnight to UTC
+    utc_datetime = today_midnight - timeoffset
+    #print(utc_datetime)
+
+    #Set up dictionaries to store data
+    moon = {}
+
+    while day < numdays:
+       moondate = utc_datetime + timedelta(days=day)
+       luna.moon_data =  {}
+
+       display_date = moondate.strftime("%m/%d/%Y")
+
+
+       luna.obs.date = moondate
+       luna.obs.horizon = "-0:34"
+       luna.obs.pressure = 0
+       luna.moon_info()
+
+
+       local_human_next_moonrise = time_to_human(to_local(luna.moon_data['next_moonrise'].datetime())).split()
+
+       #Figure out if Moon rise is on different day (no rise on current day)
+       d_day = display_date.split("/")
+       md_day = local_human_next_moonrise[0].split("/")
+
+       if int(d_day[1]) != int(md_day[1]):
+           get_next_moonset_date = moondate
+           moonrise_display = "-"
+       else:
+           get_next_moonset_date = luna.moon_data['next_moonrise'].datetime()
+           moonrise_display = local_human_next_moonrise[1] + " " + local_human_next_moonrise[2] + " " + local_human_next_moonrise[3]
+
+       luna.obs.date = get_next_moonset_date
+       luna.moon_info()
+
+       local_human_next_moonset = time_to_human(to_local(luna.moon_data['next_moonset'].datetime()))
+       moonset_split = time_to_human(to_local(luna.moon_data['next_moonset'].datetime())).split()
+
+       # Only dipslay set date if day is different
+       if local_human_next_moonrise[0] == moonset_split[0]:
+           moonset_display = moonset_split[1] + " " + moonset_split[2] + " " + moonset_split[3] 
+       else: 
+           moonset_display = local_human_next_moonset
+
+
+       moon[display_date] = { 
+               "Moonrise": moonrise_display,
+               "Moonset": moonset_display,
+               "Phase": luna.moon_data['moon_quarter'],
+               "PhaseName": luna.moon_data['moon_phase_name'],
+               "PhasePercent": luna.moon_data['moon_phase_percent'],
+               "PhaseIcon": luna.moon_data['moon_phase_emoji'],
+       }
+
+       day = day+1
+
+    return render_template('moon_stats_zip.html', zipcode=zcode, ziplat=ziplat, ziplon=ziplon, datetime=current_datetime, currentmoon=currentmoondata, moonimage=moon_image, moonstats=moon, numdays=numdays)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=WEBPORT)
