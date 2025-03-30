@@ -521,8 +521,8 @@ def moon_zip(zipcode):
 
     nomi = pgeocode.Nominatim("us")
     zipquery = nomi.query_postal_code(zcode)
-    ziplat = zipquery["latitude"]
-    ziplon = zipquery["longitude"]
+    ziplat = convert_dd_to_dms(zipquery["latitude"])
+    ziplon = convert_dd_to_dms(zipquery["longitude"])
 
     gps_data_tuple = get_gps_data()
 
@@ -534,7 +534,8 @@ def moon_zip(zipcode):
     gpslongitude = gps_data_tuple[5]
     gps_data = gps_data_tuple[6]
 
-    luna = AstroData(obslat=gps_data[1], obslon=gps_data[2], obslev=gps_data[3], obshorizon=MY_HORIZON)
+    ## luna = AstroData(obslat=gps_data[1], obslon=gps_data[2], obslev=gps_data[3], obshorizon=MY_HORIZON)
+    luna = AstroData(obslat=ziplat, obslon=ziplon, obslev=0, obshorizon=MY_HORIZON)
 
     # Current Moon Information
     luna.moon_data = {}
