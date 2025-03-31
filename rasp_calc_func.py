@@ -2,7 +2,7 @@
 # Just some different calculations for RaspAstro       #
 ########################################################
 from dateutil import tz
-from datetime import datetime
+from datetime import tzinfo, datetime, timezone, timedelta
 import requests
 import socket
 
@@ -20,6 +20,20 @@ def to_local(time):
     local_time = time.astimezone(to_zone)
     return local_time
 
+###################################################
+# function to convert UTC to a provided timezone  #
+###################################################
+def to_timezone(time, tzone):
+    '''
+    Convert UTC (time) to a provide timezone
+    Returns local time
+    '''
+    from_zone = tz.tzutc()
+    time = time.replace(tzinfo=from_zone)
+    to_zone = tz.gettz(tzone)
+    local_time = time.astimezone(to_zone)
+
+    return local_time
 
 ########################################
 # function to convert Meters to Miles  #

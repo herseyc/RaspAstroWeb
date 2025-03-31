@@ -16,6 +16,8 @@ import matplotlib.pyplot as plt
 from config import *
 from get_gps import *
 import pgeocode
+from pyzipcode import ZipCodeDatabase 
+from timezonefinder import TimezoneFinder
 
 import sys
 sys.dont_write_bytecode = True
@@ -517,6 +519,7 @@ def moon_zip(zipcode):
 
     current_datetime = time_to_human(to_local(datetime.utcnow()))
 
+    # Get lat/lon from zipcode
     zcode = str(zipcode)
 
     nomi = pgeocode.Nominatim("us")
@@ -524,15 +527,9 @@ def moon_zip(zipcode):
     ziplat = convert_dd_to_dms(zipquery["latitude"])
     ziplon = convert_dd_to_dms(zipquery["longitude"])
 
-    gps_data_tuple = get_gps_data()
-
-    gpsfixtype = gps_data_tuple[0]
-    gpslatdms = gps_data_tuple[1]
-    gpslondms = gps_data_tuple[2]
-    gpsaltitude = gps_data_tuple[3]
-    gpslatitude = gps_data_tuple[4]
-    gpslongitude = gps_data_tuple[5]
-    gps_data = gps_data_tuple[6]
+    #Get Timezone from ziplat/ziplon
+    tzobj = TimezoneFinder()
+    tzone = tzobj.timezone_at(lat=zipquery["latitude"], lng=zipquery["longitude"])
 
     ## luna = AstroData(obslat=gps_data[1], obslon=gps_data[2], obslev=gps_data[3], obshorizon=MY_HORIZON)
     luna = AstroData(obslat=ziplat, obslon=ziplon, obslev=0, obshorizon=MY_HORIZON)
@@ -545,16 +542,16 @@ def moon_zip(zipcode):
     luna.moon_info()
 
     # Convert Moon event times to human readable local time
-    luna.moon_data['next_full_moon'] = time_to_human(to_local(luna.moon_data['next_full_moon'].datetime()))
-    luna.moon_data['next_new_moon'] = time_to_human(to_local(luna.moon_data['next_new_moon'].datetime()))
+    luna.moon_data['next_full_moon'] = time_to_human(to_timezone(luna.moon_data['next_full_moon'].datetime(), tzone))
+    luna.moon_data['next_new_moon'] = time_to_human(to_timezone(luna.moon_data['next_new_moon'].datetime(), tzone))
 
     # Is Moon Rising or Setting
     luna.moon_data['rising_sign'] = rising_or_setting(next_transit_time=luna.moon_data['next_moon_transit'])
 
     # Convert Moon next transit/set/rise time to human readable local time
-    luna.moon_data['next_moon_transit'] = time_to_human(to_local(luna.moon_data['next_moon_transit'].datetime()))
-    luna.moon_data['next_moonset'] = time_to_human(to_local(luna.moon_data['next_moonset'].datetime()))
-    luna.moon_data['next_moonrise'] = time_to_human(to_local(luna.moon_data['next_moonrise'].datetime()))
+    luna.moon_data['next_moon_transit'] = time_to_human(to_timezone(luna.moon_data['next_moon_transit'].datetime(), tzone))
+    luna.moon_data['next_moonset'] = time_to_human(to_timezone(luna.moon_data['next_moonset'].datetime(), tzone))
+    luna.moon_data['next_moonrise'] = time_to_human(to_timezone(luna.moon_data['next_moonrise'].datetime(), tzone))
 
     currentmoondata = luna.moon_data
 
@@ -592,7 +589,7 @@ def moon_zip(zipcode):
        luna.moon_info()
 
 
-       local_human_next_moonrise = time_to_human(to_local(luna.moon_data['next_moonrise'].datetime())).split()
+       local_human_next_moonrise = time_to_human(to_timezone(luna.moon_data['next_moonrise'].datetime(), tzone)).split()
 
        #Figure out if Moon rise is on different day (no rise on current day)
        d_day = display_date.split("/")
@@ -608,8 +605,8 @@ def moon_zip(zipcode):
        luna.obs.date = get_next_moonset_date
        luna.moon_info()
 
-       local_human_next_moonset = time_to_human(to_local(luna.moon_data['next_moonset'].datetime()))
-       moonset_split = time_to_human(to_local(luna.moon_data['next_moonset'].datetime())).split()
+       local_human_next_moonset = time_to_human(to_timezone(luna.moon_data['next_moonset'].datetime(), tzone))
+       moonset_split = time_to_human(to_timezone(luna.moon_data['next_moonset'].datetime(), tzone)).split()
 
        # Only dipslay set date if day is different
        if local_human_next_moonrise[0] == moonset_split[0]:
