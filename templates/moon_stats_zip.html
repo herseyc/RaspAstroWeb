@@ -9,7 +9,7 @@
 
 <body>
 <h1>RaspAstro</h1>
-<h2>The Moon for {{zipcode}}</h2>
+<h2>The Moon for {{zipcode}} - {{ zipquery['place_name'] }}, {{ zipquery['state_name'] }}</h2>
 <p><a href="/">Home</a></p>
 
 <p>Lat: {{ ziplat }} Lon: {{ ziplon }}</p>
@@ -71,7 +71,7 @@
 </tr>
 {% endfor %}
 </table>
-
+<p>Query: {{ zipquery }}</p>
 
 <p><a href="https://github.com/herseyc/RaspAstroWeb">RaspAstroWeb</a> by Hersey from <a href="http://www.suffolksky.com">SuffolkSky.com</a></p>
 

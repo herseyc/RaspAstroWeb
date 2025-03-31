@@ -629,7 +629,7 @@ def moon_zip(zipcode):
 
        day = day+1
 
-    return render_template('moon_stats_zip.html', zipcode=zcode, ziplat=ziplat, ziplon=ziplon, datetime=current_datetime, currentmoon=currentmoondata, moonimage=moon_image, moonstats=moon, numdays=numdays)
+    return render_template('moon_stats_zip.html', zipquery=zipquery, zipcode=zcode, ziplat=ziplat, ziplon=ziplon, datetime=current_datetime, currentmoon=currentmoondata, moonimage=moon_image, moonstats=moon, numdays=numdays)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=WEBPORT)
