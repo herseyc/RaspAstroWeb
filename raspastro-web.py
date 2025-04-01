@@ -514,7 +514,7 @@ def moon():
 
     return render_template('moon_stats.html', datetime=current_datetime, currentmoon=currentmoondata, moonimage=moon_image, moonstats=moon, numdays=numdays)
 
-@app.route('/moon/zip/<int:zipcode>')
+@app.route('/moon/zip/<zipcode>')
 def moon_zip(zipcode):
 
     current_datetime = time_to_human(to_local(datetime.utcnow()))
