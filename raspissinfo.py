@@ -52,12 +52,9 @@ class ISSData:
             tle.append(data_list[2])
             tle.append(data_list[3])
         else: 
-<<<<<<< HEAD
             # Get ISS Data from Celestrak.org
             #iss_tledata = "https://celestrak.org/NORAD/elements/gp.php?CATNR=25544"
-=======
             # Get ISS Data from Ariss.org
->>>>>>> 5f428acdc5f2e723a22e8cd5bb83343c33325a77
             iss_tledata = "https://live.ariss.org/iss.txt"
             f = request.urlopen(iss_tledata)
             iss = f.readlines()
