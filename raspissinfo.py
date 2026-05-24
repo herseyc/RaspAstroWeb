@@ -46,14 +46,14 @@ class ISSData:
             #Make Weekday Somthing that will not test true
             weekday = datetime.now().weekday() + 6
 
-        # Get tle from celestrak only once per day
+        # Get tle from Ariss.org only once per day
         if weekday == now_weekday:
             tle.append(data_list[1])
             tle.append(data_list[2])
             tle.append(data_list[3])
         else: 
-            # Get ISS Data from Celestrak.org
-            iss_tledata = "https://celestrak.org/NORAD/elements/gp.php?CATNR=25544"
+            # Get ISS Data from Ariss.org
+            iss_tledata = "https://live.ariss.org/iss.txt"
             f = request.urlopen(iss_tledata)
             iss = f.readlines()
 
