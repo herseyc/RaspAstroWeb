@@ -4,6 +4,7 @@ After=network.target
 
 [Service]
 Type=idle
+ExecStartPre=/bin/sleep 60
 # MUST SET YOUR USERNAME HERE 
 User=pi
 
